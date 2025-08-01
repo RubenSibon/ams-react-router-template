@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "DOM.Iterable",
+      "DOM",
+      "ESNext"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "~/*": [
+        "./app/*"
+      ]
+    },
+    "resolveJsonModule": true,
+    "rootDirs": [
+      ".",
+      "./.react-router/types"
+    ],
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ESNext",
+    "types": [
+      "node",
+      "vite/client"
+    ],
+    "verbatimModuleSyntax": true
+  },
+  "exclude": [
+    "build",
+    "node_modules",
+    "test/coverage"
+  ],
+  "include": [
+    "**/*"
+  ]
+}

@@ -1,0 +1,15 @@
+# Project
+*.md
+/.dockerignore
+/.eslintignore
+/.git/
+/.github/
+/.gitignore
+/.husky/
+/.stylelintignore
+/docker-compose.yaml
+/Dockerfile
+/LICENSE
+/Makefile
+/node_modules/
+/test/coverage/

@@ -1,0 +1,9 @@
+# Project
+/.husky/
+/dist/
+/node_modules/
+/test/coverage/
+
+# React Router
+/.react-router/
+/build/

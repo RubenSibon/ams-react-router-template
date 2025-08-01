@@ -1,0 +1,39 @@
+services:
+  # Production service (default)
+  template:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ams-react-router-template:latest
+    pull_policy: never
+    container_name: ams-react-router-template
+    profiles:
+      # Use one of these profiles to enable this service: `docker compose --profile prod up --remove-orphans`.
+      - build
+      - prod
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+
+  # Development service
+  template-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    image: ams-react-router-template:dev
+    pull_policy: never
+    container_name: ams-react-router-template-dev
+    profiles:
+      # Use the dev profile to enable this service: `docker compose --profile dev up`.
+      - dev
+    volumes:
+      # Mount the current directory to the container for live reloading.
+      - .:/template
+      # Name volume for node_modules to persist dependencies.
+      - docker_node_modules:/template/node_modules
+    ports:
+      - '5173:5173'
+
+volumes:
+  docker_node_modules:

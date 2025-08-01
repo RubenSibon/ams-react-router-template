@@ -1,0 +1,30 @@
+/**
+ * @license EUPL-1.2+
+ * Copyright Gemeente Amsterdam
+ */
+
+type PageHeaderMenuLink = {
+  fixed?: boolean
+  href?: string
+  label: string
+  lang?: "en"
+};
+
+export const pageHeaderMenuLinks: PageHeaderMenuLink[] = [
+  {
+    href: "/contact",
+    label: "Contact",
+  },
+  {
+    href: "https://mijn.amsterdam.nl/",
+    label: "Mijn Amsterdam",
+  },
+  {
+    fixed: true,
+    label: "Zoeken",
+  },
+];
+
+type MegaMenuLink = string;
+
+export const megaMenuLinks: MegaMenuLink[] = ["Afval", "Bestuur en organisatie", "Gemeentebelastingen", "…"];

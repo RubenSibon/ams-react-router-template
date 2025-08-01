@@ -1,0 +1,10 @@
+# Project
+/node_modules/
+/test/coverage/
+
+# React Router
+/.react-router/
+/build/
+
+# Note: OS and IDE related files should be ignored by the user in their global .gitignore
+# See: https://sebastiandedeyne.com/setting-up-a-global-gitignore-file/
