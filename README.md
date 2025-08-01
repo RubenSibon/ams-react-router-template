@@ -37,9 +37,9 @@ Many instructions in this README use [Make](https://www.gnu.org/software/make/) 
 
 This app can be developed, build and run for production locally or in Docker containers. Check the [Makefile](Makefile), the [Dockerfile](Dockerfile) and the [docker-compose.yaml](docker-compose.yaml) to learn more.
 
-## Getting started
+## Development
 
-### Development
+### Local development environment
 
 You can develop locally (A) or in a Docker container (B).
 
@@ -115,11 +115,11 @@ Locally install the dependencies and build for production:
 make build-local
 ```
 
-### Deployment
+## Deployment
 
 You can deploy yourself (A) or push a Docker container (B).
 
-#### A) DIY deployment
+### A) DIY deployment
 
 If you're familiar with deploying Node applications, the built-in app server is production-ready.
 
@@ -139,7 +139,7 @@ To locally start the production server:
 make app-local # This also builds the application.
 ```
 
-#### B) Docker deployment
+### B) Docker deployment
 
 Build and start the production server in a Docker container:
 
@@ -149,7 +149,7 @@ make app
 
 The application will be available at `http://localhost:3000`.
 
-### Cleanup
+## Cleanup
 
 To clean everything up run:
 
