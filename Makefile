@@ -41,7 +41,7 @@ lint: install-local
 lint-fix: install-local
 	pnpm lint-fix
 
-lint-staged:
+lint-staged: install-local
 	pnpm lint-staged
 
 clean-docker:
