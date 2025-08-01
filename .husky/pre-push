@@ -1,7 +1,7 @@
 # Get the current branch name
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 # Check if the remote branch exists
-remote_branch_exists=$(git ls-remote --heads origin $current_branch | wc -l)
+remote_branch_exists=$(git ls-remote --heads origin "$current_branch" | wc -l)
 
 if [ "$remote_branch_exists" -eq 0 ]; then
     echo "Remote branch '$current_branch' does not exist. Allowing push to create the branch."
@@ -9,19 +9,19 @@ if [ "$remote_branch_exists" -eq 0 ]; then
 fi
 
 # Fetch the latest changes from the remote
-git fetch origin $current_branch
+git fetch origin "$current_branch"
 
 # Check if the local branch is up to date with the remote branch
-LOCAL=$(git rev-parse $current_branch)
-REMOTE=$(git rev-parse origin/$current_branch)
-BASE=$(git merge-base $current_branch origin/$current_branch)
+LOCAL=$(git rev-parse "$current_branch")
+REMOTE=$(git rev-parse "origin/$current_branch")
+BASE=$(git merge-base "$current_branch" "origin/$current_branch")
 
-if [ $LOCAL = $REMOTE ]; then
+if [ "$LOCAL" = "$REMOTE" ]; then
     echo "Branch is up to date. Proceeding with the push."
-elif [ $LOCAL = $BASE ]; then
+elif [ "$LOCAL" = "$BASE" ]; then
     echo "Your branch is behind the remote branch. Please pull the latest changes before pushing."
     exit 1
-elif [ $REMOTE = $BASE ]; then
+elif [ "$REMOTE" = "$BASE" ]; then
     echo "Your branch is ahead of the remote branch. You can safely push."
 else
     echo "Your branch has diverged from the remote branch. Please resolve the divergence before pushing."
