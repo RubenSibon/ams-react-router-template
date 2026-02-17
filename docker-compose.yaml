@@ -1,39 +1,55 @@
 services:
-  # Production service (default)
-  template:
+  # Production service (serve the application)
+  appname:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ams-react-router-template:latest
+      target: prod
+    image: ams-react-router-appname:latest
     pull_policy: never
-    container_name: ams-react-router-template
+    container_name: ams-react-router-appname
     profiles:
-      # Use one of these profiles to enable this service: `docker compose --profile prod up --remove-orphans`.
-      - build
+      # Use the "prod" profile to enable this service: `docker compose --profile prod up --remove-orphans`.
       - prod
     restart: unless-stopped
     ports:
-      - '3000:3000'
+      - "3000:3000"
+
+  # Build service (optional)
+  appname-build-only:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build
+    image: ams-react-router-appname:build
+    pull_policy: never
+    container_name: ams-react-router-appname-build
+    profiles:
+      # Use the "build" profile to enable this service: `docker compose --profile build up --remove-orphans`.
+      - build
+    restart: "no"
+    command: sh -c "pnpm run build"
 
   # Development service
-  template-dev:
+  appname-dev:
     build:
       context: .
       dockerfile: Dockerfile
       target: dev
-    image: ams-react-router-template:dev
+    image: ams-react-router-appname:dev
     pull_policy: never
-    container_name: ams-react-router-template-dev
+    container_name: ams-react-router-appname-dev
     profiles:
-      # Use the dev profile to enable this service: `docker compose --profile dev up`.
+      # Use the "dev" profile to enable this service: `docker compose --profile dev up`.
       - dev
+    restart: unless-stopped
     volumes:
       # Mount the current directory to the container for live reloading.
-      - .:/template
-      # Name volume for node_modules to persist dependencies.
-      - docker_node_modules:/template/node_modules
+      - .:/appname
+      # Named volume for node_modules to persist dependencies.
+      - docker_node_modules:/appname/node_modules
     ports:
-      - '5173:5173'
+      - "5173:5173"
 
 volumes:
   docker_node_modules:

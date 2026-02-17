@@ -7,9 +7,14 @@
 /.gitignore
 /.husky/
 /.stylelintignore
+/.stylelintrc.json
+/CODEOWNERS
+/commitlint.config.js
 /docker-compose.yaml
 /Dockerfile
+/eslint.*.ts
 /LICENSE
+/lint-staged.config.ts
 /Makefile
 /node_modules/
 /test/coverage/

@@ -10,7 +10,7 @@
 - [Stylelint](https://stylelint.io/) - CSS style linter
 - [Husky](https://typicode.github.io/husky/) + [lint-staged](https://www.npmjs.com/package/lint-staged) - git hooks to ensure code quality and standards
 
-### Development standards
+### Standards
 
 This project is part of the City of Amsterdam and aims to comply with the [Development Standards](https://developers.amsterdam/).
 
