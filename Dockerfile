@@ -1,10 +1,10 @@
 # Dockerfile for React Router template for the City of Amsterdam
 # This file can be used for both development with HMR, building for production and starting React Router's Node.js server.
 
-FROM node:lts-alpine AS base
+FROM node:lts-bookworm-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-WORKDIR /template
+WORKDIR /appname
 RUN corepack enable
 COPY package.json pnpm-lock.yaml ./
 
@@ -23,10 +23,11 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm run build
 
-## Production (serve) stage
-# Runs by default with the base stage. It is used to serve the built application.
+## Production (serve) SSR stage
+# Runs by default with the base stage. Serve the built application with Node.js.
+# Will fail if SSR is disabled in react-router.config.ts
 FROM base AS prod
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --prod --ignore-scripts
-COPY --from=build /template/build ./build
+COPY --from=build /appname/build ./build
 EXPOSE 3000
 CMD ["pnpm", "start"]
