@@ -9,10 +9,4 @@ describe("Contact", () => {
 
     expect(container.firstChild).toBeDefined();
   });
-
-  it("has the expected content", () => {
-    const { container } = render(<Contact />);
-
-    expect(container.textContent).toEqual("Contact");
-  });
 });

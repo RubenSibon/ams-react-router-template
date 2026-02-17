@@ -1,5 +1,6 @@
-import { render } from "@testing-library/react";
 import { BrowserRouter } from "react-router";
+
+import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import AppFooter from "./AppFooter";

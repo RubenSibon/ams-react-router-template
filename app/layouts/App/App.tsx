@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
+import { Outlet } from "react-router";
 
 import { Page, SkipLink } from "@amsterdam/design-system-react";
-import { Outlet } from "react-router";
 
 import AppHeader from "~/layouts/App/AppHeader/AppHeader";
 
 import styles from "./App.module.css";
 import AppFooter from "./AppFooter/AppFooter";
 
-export function AppLayout({ children }: { children?: ReactNode }) {
+export function AppLayout({ children }: { readonly children?: ReactNode }) {
   return (
     <Page>
       <SkipLink href="#main">Direct naar inhoud</SkipLink>

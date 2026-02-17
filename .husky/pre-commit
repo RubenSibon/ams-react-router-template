@@ -1,1 +1,4 @@
-make lint-staged
+pnpm install
+pnpm audit fix
+pnpm typegen
+pnpm lint-staged

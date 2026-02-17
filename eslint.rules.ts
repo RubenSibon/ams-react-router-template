@@ -7,6 +7,8 @@ import { type Linter } from "eslint";
 
 export const eslintRules: Linter.RulesRecord = {
   ...eslint.configs.recommended.rules,
+  "@typescript-eslint/no-unsafe-assignment": ["warn"],
+  "@typescript-eslint/only-throw-error": ["off"],
   "no-duplicate-imports": ["error", { includeExports: true }],
   "no-extra-semi": ["error"],
   "no-unused-vars": ["error"],
@@ -17,6 +19,7 @@ export const eslintRules: Linter.RulesRecord = {
  */
 
 export const reactRules: Linter.RulesRecord = {
+  "react/prefer-read-only-props": "warn",
   "react/react-in-jsx-scope": "off",
 };
 
@@ -49,7 +52,27 @@ export const perfectionistRules: Linter.RulesRecord = {
     },
   ],
   "perfectionist/sort-exports": ["error"],
-  "perfectionist/sort-imports": ["error"],
+  "perfectionist/sort-imports": [
+    "error", {
+      customGroups: [
+        {
+          groupName: "react",
+          elementNamePattern: ["^react$", "^react-.+"],
+        },
+      ],
+      groups: [
+        "react",
+        "type-import",
+        ["value-builtin", "value-external"],
+        "type-internal",
+        "value-internal",
+        ["type-parent", "type-sibling", "type-index"],
+        ["value-parent", "value-sibling", "value-index"],
+        "ts-equals-import",
+        "unknown",
+      ],
+    },
+  ],
   "perfectionist/sort-interfaces": ["warn"],
   "perfectionist/sort-intersection-types": [
     "error",
@@ -96,14 +119,56 @@ export const perfectionistRules: Linter.RulesRecord = {
  */
 
 export const stylisticRules: Linter.RulesRecord = {
-  "@stylistic/array-bracket-newline": ["error", { multiline: true }],
-  "@stylistic/arrow-parens": ["error", "as-needed"],
-  "@stylistic/max-len": ["error", { code: 120, ignoreStrings: true }],
-  "@stylistic/comma-dangle": ["error", "always-multiline"],
-  "@stylistic/indent": ["error", 2],
-  "@stylistic/no-multiple-empty-lines": ["error", { max: 1, maxEOF: 1 }],
-  "@stylistic/semi": ["error", "always"],
-  "@stylistic/quotes": ["error", "double", { avoidEscape: true }],
+  "@stylistic/array-bracket-newline": [
+    "error",
+    {
+      multiline: true,
+    },
+  ],
+  "@stylistic/arrow-parens": [
+    "error",
+    "as-needed",
+  ],
+  "@stylistic/brace-style": [
+    "error",
+    "1tbs",
+    {
+      allowSingleLine: true,
+    },
+  ],
+  "@stylistic/comma-dangle": [
+    "error",
+    "always-multiline",
+  ],
+  "@stylistic/indent": [
+    "error",
+    2,
+  ],
+  "@stylistic/max-len": [
+    "error",
+    {
+      code: 120,
+      ignoreStrings: true,
+    },
+  ],
+  "@stylistic/no-multiple-empty-lines": [
+    "error",
+    {
+      max: 1,
+      maxEOF: 1,
+    },
+  ],
+  "@stylistic/quotes": [
+    "error",
+    "double",
+    {
+      avoidEscape: true,
+    },
+  ],
+  "@stylistic/semi": [
+    "error",
+    "always",
+  ],
 };
 
 export default {

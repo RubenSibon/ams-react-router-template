@@ -27,3 +27,9 @@ else
     echo "Your branch has diverged from the remote branch. Please resolve the divergence before pushing."
     exit 1
 fi
+
+pnpm install
+pnpm audit fix
+pnpm typegen
+pnpm test
+pnpm lint

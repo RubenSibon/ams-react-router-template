@@ -18,6 +18,9 @@
     "paths": {
       "~/*": [
         "./app/*"
+      ],
+      "~types/*": [
+        "./.react-router/types/*"
       ]
     },
     "resolveJsonModule": true,
@@ -31,7 +34,9 @@
     "target": "ESNext",
     "types": [
       "node",
-      "vite/client"
+      "vite/client",
+      "vitest/globals",
+      "@testing-library/jest-dom"
     ],
     "verbatimModuleSyntax": true
   },
@@ -41,6 +46,7 @@
     "test/coverage"
   ],
   "include": [
-    "**/*"
+    "**/*",
+    "./vitest-setup.ts"
   ]
 }

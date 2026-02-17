@@ -2,8 +2,10 @@ import eslint from "@eslint/js";
 import eslintJson from "@eslint/json";
 import eslintMarkdown from "@eslint/markdown";
 import stylistic from "@stylistic/eslint-plugin";
+import eslintJestDom from "eslint-plugin-jest-dom";
 import perfectionist from "eslint-plugin-perfectionist";
 import eslintReact from "eslint-plugin-react";
+import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -11,7 +13,7 @@ import eslintRules from "./eslint.rules";
 
 // We use the `TypeScript config(...)` function to create a TypeScript ESLint configuration
 // See: https://typescript-eslint.io/packages/typescript-eslint/#config
-export default tseslint.config(
+export default defineConfig(
   // Global
   {
     name: "global",
@@ -20,6 +22,7 @@ export default tseslint.config(
       ".husky/",
       "node_modules/",
       "test/coverage/",
+      "public/mockServiceWorker.js",
 
       // React Router
       ".react-router/",
@@ -32,18 +35,19 @@ export default tseslint.config(
     name: "js-ts-tsx",
     ...eslint.configs.recommended, // ESLint recommended config (not a plugin).
     plugins: {
-      "@typescript-eslint": tseslint.plugin,
       "@stylistic": stylistic, // Stylistic instead of Prettier for code formatting.
+      "@typescript-eslint": tseslint.plugin,
       "react": eslintReact,
     },
     extends: [
       tseslint.configs.recommendedTypeCheckedOnly,
       eslintReact.configs.flat.recommended,
       eslintReact.configs.flat["jsx-runtime"],
+      eslintJestDom.configs["flat/recommended"],
       perfectionist.configs["recommended-natural"],
       stylistic.configs.recommended,
     ],
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts,tsx}"],
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts,tsx,test.ts,test.tsx}"],
     languageOptions: {
       globals: {
         ...globals.browser,
