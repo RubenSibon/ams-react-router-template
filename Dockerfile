@@ -31,3 +31,14 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY --from=build /appname/build ./build
 EXPOSE 3000
 CMD ["pnpm", "start"]
+
+## Production (serve) SPA stage
+# Serve the built SPA with NGINX.
+# This stage is not used by default. It is only used if you explicitly specify the "prod-spa" target when building the image or running the container.
+# Make sure to use the "prod-spa" profile to enable this service: `docker compose --profile prod-spa up --remove-orphans`.
+FROM nginx:stable-bookworm AS prod-spa
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=build /appname/build/client /usr/share/nginx/html
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
