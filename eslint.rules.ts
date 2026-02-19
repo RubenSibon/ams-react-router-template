@@ -7,6 +7,8 @@ import { type Linter } from "eslint";
 
 export const jsRules: Linter.RulesRecord = {
   ...eslint.configs.recommended.rules,
+  "@typescript-eslint/no-unsafe-assignment": ["warn"],
+  "@typescript-eslint/only-throw-error": ["off"],
   "no-duplicate-imports": ["error", { includeExports: true }],
   "no-extra-semi": ["error"],
   "no-unused-vars": ["error"],
