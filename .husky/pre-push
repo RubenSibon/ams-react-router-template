@@ -29,7 +29,7 @@ else
 fi
 
 pnpm install
-pnpm audit fix
+pnpm audit
+pnpm lint
 pnpm typegen
 pnpm test
-pnpm lint
