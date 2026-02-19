@@ -4,16 +4,15 @@ import eslintMarkdown from "@eslint/markdown";
 import stylistic from "@stylistic/eslint-plugin";
 import eslintJestDom from "eslint-plugin-jest-dom";
 import perfectionist from "eslint-plugin-perfectionist";
-import eslintReact from "eslint-plugin-react";
+import * as eslintReact from "eslint-plugin-react";
 import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
 import eslintRules from "./eslint.rules";
 
-// We use the `TypeScript config(...)` function to create a TypeScript ESLint configuration
-// See: https://typescript-eslint.io/packages/typescript-eslint/#config
-export default defineConfig(
+export default defineConfig([
+
   // Global
   {
     name: "global",
@@ -38,16 +37,14 @@ export default defineConfig(
       "@stylistic": stylistic, // Stylistic instead of Prettier for code formatting.
       "@typescript-eslint": tseslint.plugin,
       "react": eslintReact,
+      perfectionist,
     },
+    files: ["**/*.{js,mjs,cjs,ts,mts,cts,tsx,test.ts,test.tsx}"],
     extends: [
       tseslint.configs.recommendedTypeCheckedOnly,
-      eslintReact.configs.flat.recommended,
-      eslintReact.configs.flat["jsx-runtime"],
       eslintJestDom.configs["flat/recommended"],
-      perfectionist.configs["recommended-natural"],
       stylistic.configs.recommended,
     ],
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts,tsx,test.ts,test.tsx}"],
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -67,9 +64,9 @@ export default defineConfig(
       },
     },
     rules: {
-      ...eslintRules.eslintRules,
+      ...eslintRules.tsRules,
       ...eslintRules.reactRules,
-      ...eslintRules.perfectionistRules,
+      ...eslintRules.perfectionistReactRules,
       ...eslintRules.stylisticRules,
     },
   },
@@ -77,22 +74,24 @@ export default defineConfig(
   // JSON
   {
     name: "json",
-    ...eslintJson.configs.recommended, // Spreading the recommended config seems to work better.
     files: ["**/*.json"],
+    ...eslintJson.configs.recommended, // Spreading the recommended config, as oppposed to plugin, gives no error.
     language: "json/json",
+    ignores: ["package-lock.json"],
   },
 
   // Markdown
   {
     name: "markdown",
+    language: "markdown/gfm", // GitHub Flavored Markdown is a strict superset of CommonMark.
     plugins: {
       markdown: eslintMarkdown,
     },
-    extends: [eslintMarkdown.configs.recommended],
     files: ["**/*.md"],
-    language: "markdown/gfm", // GitHub Flavored Markdown is a strict superset of CommonMark.
+    extends: [eslintMarkdown.configs.recommended],
     rules: {
       ...eslintRules.markdownRules,
     },
   },
-);
+
+]);
