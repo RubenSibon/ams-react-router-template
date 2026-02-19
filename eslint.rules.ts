@@ -5,7 +5,7 @@ import { type Linter } from "eslint";
  * General JavaScript rules
  */
 
-export const eslintRules: Linter.RulesRecord = {
+export const jsRules: Linter.RulesRecord = {
   ...eslint.configs.recommended.rules,
   "@typescript-eslint/no-unsafe-assignment": ["warn"],
   "@typescript-eslint/only-throw-error": ["off"],
@@ -15,10 +15,21 @@ export const eslintRules: Linter.RulesRecord = {
 };
 
 /**
+ * TypeScript rules on top of JavaScript rules
+ */
+
+export const tsRules: Linter.RulesRecord = {
+  ...jsRules,
+  "@typescript-eslint/no-unsafe-assignment": ["warn"],
+  "@typescript-eslint/only-throw-error": ["off"],
+};
+
+/**
  * React rules
  */
 
 export const reactRules: Linter.RulesRecord = {
+  "react/jsx-sort-props": "off",
   "react/prefer-read-only-props": "warn",
   "react/react-in-jsx-scope": "off",
 };
@@ -54,14 +65,7 @@ export const perfectionistRules: Linter.RulesRecord = {
   "perfectionist/sort-exports": ["error"],
   "perfectionist/sort-imports": [
     "error", {
-      customGroups: [
-        {
-          groupName: "react",
-          elementNamePattern: ["^react$", "^react-.+"],
-        },
-      ],
       groups: [
-        "react",
         "type-import",
         ["value-builtin", "value-external"],
         "type-internal",
@@ -78,21 +82,6 @@ export const perfectionistRules: Linter.RulesRecord = {
     "error",
     {
       ...perfectionistCommonRules.partition,
-    },
-  ],
-  "perfectionist/sort-jsx-props": [
-    "error",
-    {
-      customGroups: {
-        id: "^id$",
-        key: "^key$",
-        methods: "^on[A-Z].*$",
-        name: "^name$",
-        ref: "^ref$",
-        title: "^title$",
-      },
-      groups: ["key", "ref", "id", "name", "title", "unknown", "methods"],
-      partitionByNewLine: perfectionistCommonRules.partition.partitionByNewLine,
     },
   ],
   "perfectionist/sort-maps": ["warn"],
@@ -112,6 +101,50 @@ export const perfectionistRules: Linter.RulesRecord = {
   "perfectionist/sort-object-types": ["warn"],
   "perfectionist/sort-objects": ["off"],
   "perfectionist/sort-union-types": ["error"],
+};
+
+/**
+ * Perfectionist React rules
+ */
+
+export const perfectionistReactRules: Linter.RulesRecord = {
+  ...perfectionistRules,
+  "perfectionist/sort-imports": [
+    "error", {
+      customGroups: [
+        {
+          groupName: "react",
+          elementNamePattern: ["^react$", "^react-.+"],
+        },
+      ],
+      groups: [
+        "react",
+        "type-import",
+        ["value-builtin", "value-external"],
+        "type-internal",
+        "value-internal",
+        ["type-parent", "type-sibling", "type-index"],
+        ["value-parent", "value-sibling", "value-index"],
+        "ts-equals-import",
+        "unknown",
+      ],
+    },
+  ],
+  "perfectionist/sort-jsx-props": [
+    "error",
+    {
+      customGroups: [
+        { groupName: "id", elementNamePattern: "^id$" },
+        { groupName: "key", elementNamePattern: "^key$" },
+        { groupName: "methods", elementNamePattern: "^on[A-Z].*$" },
+        { groupName: "name", elementNamePattern: "^name$" },
+        { groupName: "ref", elementNamePattern: "^ref$" },
+        { groupName: "title", elementNamePattern: "^title$" },
+      ],
+      groups: ["key", "ref", "id", "name", "title", "unknown", "methods"],
+      partitionByNewLine: perfectionistCommonRules.partition.partitionByNewLine,
+    },
+  ],
 };
 
 /**
@@ -172,9 +205,11 @@ export const stylisticRules: Linter.RulesRecord = {
 };
 
 export default {
-  eslintRules,
+  jsRules,
   markdownRules,
+  perfectionistReactRules,
   perfectionistRules,
   reactRules,
   stylisticRules,
+  tsRules,
 };

@@ -8,6 +8,10 @@ all: app
 app:
 	${dc} --profile prod up --remove-orphans
 
+# Start the app locally for production use.
+app-local: build-local
+	pnpm start
+
 # Build the Docker image for production use.
 build:
 	${dc} --profile build up --remove-orphans
@@ -17,24 +21,25 @@ build:
 # Note `pnpm audit` with `-P` flag makes sure that the audit fix is applied to the production dependencies only.
 build-local:
 	pnpm install --ignore-scripts
-	pnpm audit -P fix
+	pnpm audit -P
 	pnpm build
-
-# Start the app locally for production use.
-app-local: build-local
-	pnpm start
 
 # Install dependencies and generate types.
 install:
 	pnpm install
-	pnpm audit fix
 	pnpm typegen
 
 # Upgrade dependencies and generate types.
 upgrade:
 	pnpm upgrade
-	pnpm audit fix
-	pnpm typegen
+
+# Run a security audit on the dependencies.
+audit:
+	pnpm audit
+
+# Run a security audit on the dependencies and automatically apply any available fixes.
+audit-fix:
+	pnpm audit --fix
 
 # Start the Docker container for development use.
 # Note: install dependencies locally and generate types first so that you have type checking and intellisense available in the IDE.
