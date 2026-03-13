@@ -28,7 +28,7 @@ else
     exit 1
 fi
 
-pnpm install
+pnpm install --frozen-lockfile
 pnpm audit
 pnpm lint
 pnpm typegen
