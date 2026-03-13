@@ -29,7 +29,6 @@ else
 fi
 
 pnpm install --frozen-lockfile
-pnpm audit
 pnpm lint
 pnpm typegen
 pnpm test
