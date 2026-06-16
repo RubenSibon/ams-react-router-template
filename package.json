@@ -14,7 +14,7 @@
         "test": "vitest run",
         "test:watch": "vitest",
         "test:coverage": "vitest run --coverage",
-        "lint": "run-s --continue-on-error lint:**",
+        "lint": "run-s --continue-on-error lint:*",
         "lint:js": "eslint .",
         "lint:css": "stylelint ./**/*.css",
         "lint-fix": "run-s --continue-on-error lint-fix:**",
