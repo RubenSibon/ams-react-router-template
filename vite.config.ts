@@ -2,6 +2,12 @@ import { reactRouter } from "@react-router/dev/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
+// Safari 14.0 has a destructuring bug esbuild now refuses to target
+// (esbuild >=0.28 compat table); bump to 14.1 where it's fixed.
+const target = ["es2020", "edge88", "firefox78", "chrome87", "safari14.1"];
+
 export default defineConfig({
   plugins: [reactRouter(), tsconfigPaths()],
+  build: { target },
+  optimizeDeps: { esbuildOptions: { target } },
 });
