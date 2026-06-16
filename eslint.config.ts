@@ -5,6 +5,7 @@ import stylistic from "@stylistic/eslint-plugin";
 import eslintJestDom from "eslint-plugin-jest-dom";
 import perfectionist from "eslint-plugin-perfectionist";
 import * as eslintReact from "eslint-plugin-react";
+import eslintYml from "eslint-plugin-yml";
 import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
@@ -78,6 +79,24 @@ export default defineConfig([
     ...eslintJson.configs.recommended, // Spreading the recommended config, as oppposed to plugin, gives no error.
     language: "json/json",
     ignores: ["package-lock.json"],
+  },
+
+  // YAML
+  {
+    name: "yaml",
+    files: ["**/*.yaml"],
+    extends: [eslintYml.configs["flat/standard"]], // "standard" adds stylistic formatting rules on top of "recommended".
+    ignores: ["pnpm-lock.yaml"],
+    rules: {
+      "yml/plain-scalar": [
+        "error",
+        "always",
+        {
+          // Keep YAML 1.1 boolean-like words quoted, since some YAML parsers (e.g. PyYAML) still read them as booleans.
+          ignorePatterns: ["^(?:y|Y|yes|Yes|YES|n|N|no|No|NO|on|On|ON|off|Off|OFF)$"],
+        },
+      ],
+    },
   },
 
   // Markdown
