@@ -14,6 +14,8 @@
         "test": "vitest run",
         "test:watch": "vitest",
         "test:coverage": "vitest run --coverage",
+        "link": "pnpm add @amsterdam/design-system-assets@link:../../Amsterdam/ADS/design-system/packages-proprietary/assets @amsterdam/design-system-css@link:../../Amsterdam/ADS/design-system/packages/css @amsterdam/design-system-react@link:../../Amsterdam/ADS/design-system/packages/react @amsterdam/design-system-react-icons@link:../../Amsterdam/ADS/design-system/packages-proprietary/react-icons @amsterdam/design-system-tokens@link:../../Amsterdam/ADS/design-system/packages-proprietary/tokens && pnpm install",
+        "unlink": "pnpm add @amsterdam/design-system-assets@2 @amsterdam/design-system-css@4 @amsterdam/design-system-react@4 @amsterdam/design-system-react-icons@2 @amsterdam/design-system-tokens@4 && pnpm install",
         "lint": "run-s --continue-on-error lint:*",
         "lint:js": "eslint .",
         "lint:css": "stylelint ./**/*.css",
