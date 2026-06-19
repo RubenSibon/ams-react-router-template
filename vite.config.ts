@@ -17,6 +17,9 @@ export default defineConfig({
   plugins: [reactRouter(), tsconfigPaths()],
   build: { target },
   optimizeDeps: { esbuildOptions: { target } },
+  resolve: {
+    dedupe: ["react", "react-dom"],
+  },
   server: {
     fs: {
       allow: [searchForWorkspaceRoot(process.cwd()), assetsPackageDir],
