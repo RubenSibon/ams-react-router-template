@@ -23,9 +23,9 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm run build
 
-## Production (serve) SSR stage
-# Runs by default with the base stage. Serve the built application with Node.js.
-# Will fail if SSR is disabled in react-router.config.ts
+## Production (serve) SPA stage (default)
+# Serve the built SPA with the `serve` static file server.
+# Will fail if SSR is enabled in react-router.config.ts (use the prod-ssr target instead).
 FROM base AS prod
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --prod --ignore-scripts
 COPY --from=build /appname/build ./build
